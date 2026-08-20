@@ -1,0 +1,2624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LizardIMG.com</title>
+
+    <link rel="icon" type="image/png" href="GccFk.png">
+    <link rel="shortcut icon" type="image/png" href="GccFk.png">
+    <link rel="apple-touch-icon" href="GccFk.png">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+        }
+
+        /* HACKER GIF BACKGROUND */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("https://miro.medium.com/1*YB-Ud_1hmF1l9jfTDaWO7A.gif");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* DARK OVERLAY */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.25);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* TOP BAR */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 9999;
+            box-sizing: border-box;
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .top-bar-left img.logo {
+            height: 38px;
+            width: 38px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .top-bar-left span.site-name {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .top-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-right: 8px;
+        }
+
+        .top-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 16px;
+            border: 1px solid #333;
+            transition: color 0.15s, border-color 0.15s, background 0.15s;
+        }
+
+        .top-nav-link:hover {
+            color: #fff;
+            border-color: #666;
+            background: #1a1a1a;
+        }
+
+        .top-nav-link .nav-icon {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        @media (max-width: 600px) {
+            .top-nav-link span.nav-label {
+                display: none;
+            }
+            .top-nav-link {
+                padding: 6px 10px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .top-bar-left span.site-name {
+                font-size: 15px;
+            }
+        }
+
+        /* MAIN */
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 90px 25px 40px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: white;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .content > p {
+            color: white;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        /* SEARCH BAR */
+        .search-box {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto 35px;
+            display: flex;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 1px solid #ccc;
+            border-radius: 25px 0 0 25px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box button {
+            padding: 0 25px;
+            border: none;
+            background: #4285f4;
+            color: white;
+            font-size: 16px;
+            border-radius: 0 25px 25px 0;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #3367d6;
+        }
+
+        /* IMAGE GRID */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 18px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .image-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .image-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-title {
+            padding: 10px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* IMAGE VIEWER */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.88);
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .image-viewer.active {
+            display: flex;
+        }
+
+        .image-viewer-content {
+            max-width: 95%;
+            max-height: 95%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            pointer-events: auto;
+        }
+
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 55vh;
+            border-radius: 10px;
+            object-fit: contain;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+        .image-viewer-title {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 12px;
+            pointer-events: none;
+        }
+
+        /* RATING SYSTEM */
+        .rating-section {
+            margin-top: 16px;
+            text-align: center;
+            color: white;
+            position: relative;
+            z-index: 20;
+            pointer-events: auto;
+            user-select: none;
+        }
+
+        .rating-label {
+            font-size: 15px;
+            margin-bottom: 10px;
+            opacity: 0.95;
+            pointer-events: none;
+        }
+
+        .rating-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+            pointer-events: auto;
+            position: relative;
+            z-index: 21;
+        }
+
+        .rating-btn {
+            width: 42px;
+            height: 42px;
+            border: 2px solid #fff;
+            background: rgba(0, 0, 0, 0.55);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.15s;
+            line-height: 1;
+            pointer-events: auto !important;
+            position: relative;
+            z-index: 22;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        .rating-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.12);
+        }
+
+        .rating-btn:active {
+            transform: scale(0.94);
+            background: #4285f4;
+        }
+
+        .rating-btn.selected {
+            background: #4285f4;
+            border-color: #8ab4f8;
+            box-shadow: 0 0 12px rgba(66, 133, 244, 0.85);
+        }
+
+        .rating-btn.selected:hover {
+            background: #3367d6;
+        }
+
+        .average-rating {
+            font-size: 16px;
+            margin-top: 8px;
+            min-height: 28px;
+            pointer-events: none;
+        }
+
+        .average-rating .stars {
+            color: #ffd700;
+            letter-spacing: 2px;
+            font-size: 18px;
+        }
+
+        .average-rating .count {
+            opacity: 0.75;
+            font-size: 13px;
+            margin-left: 6px;
+        }
+
+        .your-rating {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 6px;
+            pointer-events: none;
+        }
+
+        .rating-loading {
+            opacity: 0.6;
+            font-size: 14px;
+        }
+
+        .image-viewer-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 30;
+        }
+
+        .image-viewer-close:hover {
+            color: #ccc;
+        }
+
+        /* MOBILE */
+        @media (max-width: 600px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .image-card img {
+                height: 140px;
+            }
+
+            .image-viewer {
+                padding: 15px;
+            }
+
+            .image-viewer img {
+                max-height: 45vh;
+            }
+
+            .image-viewer-title {
+                font-size: 18px;
+            }
+
+            .rating-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <img class="logo" src="GccFk.png" alt="LizardIMG Logo">
+            <span class="site-name">LizardIMG.com</span>
+        </div>
+        <div class="top-bar-right">
+            <div class="top-nav-links">
+                <a class="top-nav-link" href="views.html" title="Total views">
+                    <span class="nav-icon">👁</span>
+                    <span class="nav-label">Views</span>
+                </a>
+                <a class="top-nav-link" href="ratings.html" title="Total ratings">
+                    <span class="nav-icon">★</span>
+                    <span class="nav-label">Ratings</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <h1>Blue Tongue Lizards Are The Best Animals In The World!</h1>
+        <p class="subtitle">W Bluey And Spot 🦎</p>
+        <p style="text-align:center;">Twitch Username: BlueyAndSpotGod</p>
+
+        <!-- SEARCH -->
+        <div class="search-box">
+            <input id="searchInput" type="text" placeholder="Search LizardIMG...">
+            <button onclick="searchImages()">Search</button>
+        </div>
+
+        <!-- IMAGE RESULTS -->
+        <div class="image-grid" id="imageGrid">
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiiDBeop5ZBgvMvfTX7ZlDVW-SmWEnnoy8KNsYEBcZrlJ8y7KpmTNGvPiT&s" alt="Bluey">
+                <div class="image-title">Bluey Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTWjo833ixRyTyc-PFIJkaCvJ5v8QJy12pCeHhZCuJ7dicbCUp5V5zrBDE&s" alt="Spot">
+                <div class="image-title">Spotty</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRBQ5VyoJfvGw6gwV2x-Fq8hnJFEUM9zt4W5qGrhpQSDIEwSxEmGeCs42p&s" alt="Bluey">
+                <div class="image-title">Bluebell</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRb8a-mLbfU3ekFDT1RNZvtchgYuTdd88xvTOoGUIJLPO0hE1wFd0xu0VrS&s" alt="Spot">
+                <div class="image-title">Spotster</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-T4SFSuDzEOk2-Y3C40JxE7meD-4k7awpP2CiSIFcw6A53--RZEYUuCVZ&s" alt="Bluey">
+                <div class="image-title">Bluester</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRneqXEvL1yN8ZEDUW-bh7fkjaJ8qDWMIay8DNQQYd12ka7IFT1KWScpb5G&s" alt="Spot">
+                <div class="image-title">Spot Nugget</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSou6hPCYlIchrx2fnFhKIBLat94uas5nbuTLmtXV4aHVgclFiXPKgDq8gw&s" alt="Bluey">
+                <div class="image-title">Blue Nugget</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2oOV6XW4cPSPZd-85T3PKODpDKqQmDGydPEacAMC_Dw&s=10" alt="Spot">
+                <div class="image-title">Spiggy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0wXY9Uydj0Jk8b8XGtM33PNfsgOq3tkZ1_bVmBfjK9A&s=10" alt="Bluey">
+                <div class="image-title">Bluebean</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNuj_mc5hYFL72Krv4_Wg3_oFnB6Y212RPiLoztKmtrQ&s=10" alt="Spot">
+                <div class="image-title">Spudgy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs_DTSvD3MwyfPmObO6uZduTCakoqGHlNnxT67Mu1qjQ&s=10" alt="Bluey">
+                <div class="image-title">Bluebean Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfv_NunD8JsJDEXhjuk7lxPaVV9iKX5O-U-VbpCVmazw&s=10" alt="Spot">
+                <div class="image-title">Spigil</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFC2C3qUBAg4my1K3sl9QACwSVf3fYStOUYTPX-cD4Ag&s=10" alt="Bluey">
+                <div class="image-title">Bluestar</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDHsbH9vMqDJpSBZVx5mJUVx1g13Gvfckx1j8IMXBGNg&s=10" alt="Spot">
+                <div class="image-title">Spotzilla</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3HEY4t2ZHUpuOMxW0yctyBxLBtC6NQ-Bd2P6AQFYKEQ&s=10" alt="Bluey">
+                <div class="image-title">Bluezy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQR853I0hPOancl7j_Ef92kTuESXkKT2oas88syUniAfw&s" alt="Spot">
+                <div class="image-title">Spotto</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqG3rBrOqyh5UpPfEgWGp8mOOE5zfcovJC2E898tfIZQ&s=10" alt="Bluey">
+                <div class="image-title">Blue Dude</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiVQwOhsCY_2yTqwS65RvO8Vr7mrZIBXWFB6lxiwby1w&s=10" alt="Spot">
+                <div class="image-title">Spot Dude</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT0UTKMwfFkRHksDoAQRPccJJDlCedEZ5yJGKIjxPixw&s=10" alt="Bluey">
+                <div class="image-title">Blueberry</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS63-hRgrYsnnVQzJIpsl2gtyFESzbKEi6hifyEz0WVDA&s=10" alt="Spot">
+                <div class="image-title">Spiggles</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuTtPS9ZwQ_wP0RgVfXLjpZU-V7JqDgT0msvhfYRo0aw&s=10" alt="Bluey">
+                <div class="image-title">Blue Spot</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST_yFTTpgoD7lB0LEqDNPsMJgI-d0wBhuvAjEm6wrQ_g&s=10" alt="Spot">
+                <div class="image-title">Spot Blue</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzOZuwZOCSivSxHAkMnTFnU-a2Q4fQPb5CiFI6DYMbbg&s=10" alt="Bluey">
+                <div class="image-title">Bluetail</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGaK2XXL5CvKFNp9u3p_0-vsViwnHZRomhYpMRuyMeqw&s=10" alt="Spot">
+                <div class="image-title">Spotlet</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCWWEUgy6FViaTsM0fvgZ4FWk5O0jGR8lhDo4zUApY_Q&s=10" alt="Bluey">
+                <div class="image-title">Blue Tongue</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQt_yRfIlu5iOlqUkpQdM8hlD8ZgP3-8bn5loBH-1hLiA&s=10" alt="Spot">
+                <div class="image-title">Spot Tongue</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDagYYcD2EJpNP1ZB4_a8H1E4Ow4nhlvIsj74Rl2-_cQ&s=10" alt="Bluey">
+                <div class="image-title">Bluezilla</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStNrhBp9fjVxONukjR-dBlCik4bCvRX2C88dr8Nc7rrw&s" alt="Spot">
+                <div class="image-title">Spigodude</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZSV4Euks1Xeapq8WtcxPxRQ4Roity2tDcJdb5pIltcQ&s=10" alt="Bluey">
+                <div class="image-title">Bluey Bean</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmVzAWa-cA00RdlqvZpPqsaOqOQ7OMhJOGXdcnLeXI-w&s=10" alt="Spot">
+                <div class="image-title">Spot Bean</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST7AteOIlMBx5BpMPEnsf4b1UCuRt2MYXwVwFQVgfD1w&s=10" alt="Bluey">
+                <div class="image-title">Blenty Jr.</div>
+            </div>
+
+            <!-- NEW LIZARDS FROM YOUR IMAGE URL FILE -->
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe2LrS6skDmDJk8FWU6j9NU4dvqww4C1n5xfyamTQxLTShI7LDastS7rxO&amp;s" alt="Bluebeam">
+                <div class="image-title">Bluebeam</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7ZSIOXcwffDgswD5PWrdzk_v4nAPgP65FnV3DIFjQk_armYzufaWZ5MFx&amp;s" alt="Spotcake">
+                <div class="image-title">Spotcake</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl6v9dAnS6GK5CvN55wvTJaU8wDJB11BC0-ui16XDpMw&amp;s" alt="Bluepop">
+                <div class="image-title">Bluepop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSE4tjnHNs3W6dLyiWnLUKKuCUkYhiWx5lyCxCU7prgEw&amp;s=10" alt="Spottles">
+                <div class="image-title">Spottles</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGD6G1W3D_BoH4prd1OfFdcbWkqcOUpGkazM6nEIx3bg&amp;s=10" alt="Bluemelon">
+                <div class="image-title">Bluemelon</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUnLTBLFJKeVUW-4dF0-_b59RTKhBVh5wA_rbsi8JAxg&amp;s=10" alt="Spotpop">
+                <div class="image-title">Spotpop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5Gy8EzhWoA2_8IT0TBGWbnu6FipALaaVkLmy8yrpwdQ&amp;s=10" alt="Bluewhisker">
+                <div class="image-title">Bluewhisker</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWN_wc1ZsmET1d4LhQ_n1-JQ9dbwtBjYgvPRik9ULZwQ&amp;s=10" alt="Spotwhisker">
+                <div class="image-title">Spotwhisker</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3AU-ZSSdXRjw-KwzREqxCjgQ9zhgoOTASf3Lb_RMZ1g&amp;s=10" alt="Bluecrumb">
+                <div class="image-title">Bluecrumb</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXzzgdDM8F3p42hjlLzdy9c29aE_FMBYtB_8Sp9wRGbQ&amp;s=10" alt="Spotcrumb">
+                <div class="image-title">Spotcrumb</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkyZmTLPNIzF3eL4izVfhLBF_xR57EfsYwTqF_FvMbBA&amp;s=10" alt="Bluewave">
+                <div class="image-title">Bluewave</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCs_R2XhmgiAS0-E5z3j8puzoEmwK0d14Pk0XHFbnK5Q&amp;s=10" alt="Spotwave">
+                <div class="image-title">Spotwave</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQAENlKNFdIElXF7gcnxVLKIRID5uetiMd-dlrDPTzHg&amp;s=10" alt="Bluebolt">
+                <div class="image-title">Bluebolt</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKNmQTcQwdpbH9zVq-9tfmY1f00GydcBDaHAj5-HISIA&amp;s=10" alt="Spotbolt">
+                <div class="image-title">Spotbolt</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLBVPJhnbS_roJ5C0ZxeOatjByhfDZ0IV_iDOEzeZimQ&amp;s=10" alt="Bluebean Supreme">
+                <div class="image-title">Bluebean Supreme</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM7lY8ryVNjL9KQamTO99XnmQ8EE6Wy9yrAtbYN4eo4g&amp;s=10" alt="Spotbean Supreme">
+                <div class="image-title">Spotbean Supreme</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPm_250XXu1g6BJ4O8ITBGyL8z3x6zfmEFPMDJbgpEqA&amp;s=10" alt="Blueflame">
+                <div class="image-title">Blueflame</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEL1AKpgApgiSmZBhrb747z36Wuh-R06cXx5M3rhyDhg&amp;s=10" alt="Spotflame">
+                <div class="image-title">Spotflame</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQFVecYRu1EeGxHloui4C2lMHZ67cxI9WwCmPHpc-ESQ&amp;s=10" alt="Bluepickle">
+                <div class="image-title">Bluepickle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGJSyDzJs0XetFA8YVG3iRh0LBGu0zzq6gBULLJHskpg&amp;s=10" alt="Spotpickle">
+                <div class="image-title">Spotpickle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRwhUL3sAezJLa7DfqrZxtO03c7tcKN3fqTYfTQQX6aA&amp;s=10" alt="Bluebiscuit">
+                <div class="image-title">Bluebiscuit</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0eSHW-vhBGZKawdOqYu31jE9JESYWWMhxIu_QWTxK_g&amp;s=10" alt="Spotbiscuit">
+                <div class="image-title">Spotbiscuit</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkGrKBM7K1HEeKQ0twbQQbB15e_TL8aIUUmwmeeMZSgw&amp;s=10" alt="Bluecomet">
+                <div class="image-title">Bluecomet</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRz_M_hM2iq15xJY4qjnKXGnkuAJ3ufodhgy1NCDVulNA&amp;s=10" alt="Spotcomet">
+                <div class="image-title">Spotcomet</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHoOyVtcKQtk38MJ7XcQcdOUx4LA9A9aD8gQMH0i7Vkg&amp;s=10" alt="Bluemochi">
+                <div class="image-title">Bluemochi</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW6Z0AVUYLa-WcGgTS8hws7ZWXjtO0op14QBtja7lnLw&amp;s=10" alt="Spotmochi">
+                <div class="image-title">Spotmochi</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT77k2o6I8D68mLbIabHHrlloKm_0eKA7I7flxGPBZExg&amp;s=10" alt="Bluepaws">
+                <div class="image-title">Bluepaws</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp2_VDU7R5nhg1_QiyVp8H1XhuJZxju2Ez5E3LC-MCkQ&amp;s=10" alt="Spotpaws">
+                <div class="image-title">Spotpaws</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST2gdtIVJaKDNk2C93GXI0U4Nz9yRClMa5qoDJA-7tEQ&amp;s=10" alt="Bluestone">
+                <div class="image-title">Bluestone</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPlW9SqQKxzroQqh4Kyyd9MCfaflY4-7-HN1gK98Xgcg&amp;s=10" alt="Spotstone">
+                <div class="image-title">Spotstone</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1VVW8ERw08wSsl87bk-gESTTvy3ZFx_gqITxjvKoXCw&amp;s=10" alt="Bluezapper">
+                <div class="image-title">Bluezapper</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxOOYKgGHA6TT7jPDlhQ8hp18UITdCsarKo7G6ig92JQ&amp;s=10" alt="Spotzapper">
+                <div class="image-title">Spotzapper</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYLweq-J20HCcH0wm4AyfiE3EK1fzc8lA4H0Ol_Xk7vA&amp;s=10" alt="Blueleaf">
+                <div class="image-title">Blueleaf</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRws_4pi3EliP9S0gjb1S8WqoIAZjDl7AY_e4y7blLUg&amp;s=10" alt="Spotleaf">
+                <div class="image-title">Spotleaf</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxJu8mp1FXVu-CVZYPhS5ggDcHzbqia9GnX3ONO8x5Iw&amp;s=10" alt="Bluechip">
+                <div class="image-title">Bluechip</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6MFjhyYKVv8aNmfG54jB6z-AZT_OJO3ppI8OjzIT35A&amp;s=10" alt="Spotchip">
+                <div class="image-title">Spotchip</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMWf5AeX9mnkii52jIfKkRxzIdtdgP5AgSnDflQsq4Gg&amp;s=10" alt="Blueberry Pop">
+                <div class="image-title">Blueberry Pop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc-t2nnM2rj6Ttgki1tCUuReIQUCZzQUDmRLnZT6kP4Q&amp;s" alt="Spotberry Pop">
+                <div class="image-title">Spotberry Pop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCOy2LqmzhuhkjramvDiar0NX0Z2z9sUQxc-P3HAJ-mg&amp;s=10" alt="Bluefang">
+                <div class="image-title">Bluefang</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBmD90rSJCtw9XGaoE9pOydS6pPbW3C63oMzt8qxnEgg&amp;s=10" alt="Spotfang">
+                <div class="image-title">Spotfang</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9yFceIkaZqib5kI2fq6wDnUib4WWi6_dcP9sOag7AiQ&amp;s=10" alt="Blueflash">
+                <div class="image-title">Blueflash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTch-iJxfxXMO3rZSYF4SweczRPRPaLOtwpDmIEIlAzmA&amp;s=10" alt="Spotflash">
+                <div class="image-title">Spotflash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0tj9YXPAqm2QArs03_nrD0DcWrZiFv4Fc2WgBX-rlFw&amp;s=10" alt="Blueloop">
+                <div class="image-title">Blueloop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2MvfFV29eMdPujNKd4i4ZOFk5L7RjqNPpCPgud1zHKQ&amp;s=10" alt="Spotloop">
+                <div class="image-title">Spotloop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7MtUt5UlYme8IVJSIDt-aqKGzvpuMl0R7_PfsRcpGjg&amp;s=10" alt="Bluebump">
+                <div class="image-title">Bluebump</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToGS5IQisYN_wDlWs9ig9ymwGtsB-IvZmi4ywCY8so_g&amp;s=10" alt="Spotbump">
+                <div class="image-title">Spotbump</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzn5T9PGXMurC8IACob9K4fbxxY2JMi49GxQBuUupLVw&amp;s=10" alt="Bluemint">
+                <div class="image-title">Bluemint</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_VGW2t2ydoQyhuIfJm-9AbPLNEgMIkisEDia1JpUCzQ&amp;s" alt="Spotmint">
+                <div class="image-title">Spotmint</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6rmTvdrAbwlDWjLchLPk7HI-Kg17R9SsaAeVT8PIcTQ&amp;s" alt="Bluewiggle">
+                <div class="image-title">Bluewiggle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCe3qKUOUYtAuvQcWrxUGrOXp5fJv7-DQmxt4kps9ruQ&amp;s=10" alt="Spotwiggle">
+                <div class="image-title">Spotwiggle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSslIi9UTq9Y11FIkXAnTG1f9evk2AJbQM4j-3jjxNQQ&amp;s=10" alt="Bluesprout">
+                <div class="image-title">Bluesprout</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4RZOXRAUUZaPwsuCLCY7xBdZhK1a7vDcbqcS579sF4YiomVOsT_Od&amp;s=0" alt="Spotsprout">
+                <div class="image-title">Spotsprout</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJnzg2PEB_A9JprKyuWAoNc6aHBywpezXNE-pzyallj84wV6izMux7&amp;s=0" alt="Bluecrunch">
+                <div class="image-title">Bluecrunch</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSn6MUsSMOVEK59bs71okC2AtZeEKYkdWcelnylGh9ArCziMJSKX6Py&amp;s=0" alt="Spotcrunch">
+                <div class="image-title">Spotcrunch</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVQbgm0quzM3M5ug9jdlGWI_S7LuEo7vHvePUP7V-rWA&amp;s=10" alt="Bluejolt">
+                <div class="image-title">Bluejolt</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM5PCnfsd0NfH6XzNzyhrjFmjYasBrHxnRIME8nst2jQ&amp;s=10" alt="Spotjolt">
+                <div class="image-title">Spotjolt</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzwV_XDbVu7UXs_TpCbJCQ5KHmifRjMXANpBTIbAXo4g&amp;s=10" alt="Bluepuddle">
+                <div class="image-title">Bluepuddle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSICTEg-t6AJaAbdHg6tVB2Q2tXYAUhyWgnHFQTV-nW9Q&amp;s=10" alt="Spotpuddle">
+                <div class="image-title">Spotpuddle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkSCaD4tl4eacfy3_J9N9lkv4VZvh4FCe6MGJtNqRsjg&amp;s=10" alt="Bluewhistle">
+                <div class="image-title">Bluewhistle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxcFTlk6MrKzXxfkW2vLmllRGKkv93KxZ6MvSpPxZ5QA&amp;s=10" alt="Spotwhistle">
+                <div class="image-title">Spotwhistle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHN-qy4bcL39DfdjKyODv-Vva05hFPFFg_7q7WJaHqJg&amp;s=10" alt="Blueburger">
+                <div class="image-title">Blueburger</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIQniYUS3KRZOI8DMjNWKbjTUjl0YabX785JRofqYvCw&amp;s=10" alt="Spotburger">
+                <div class="image-title">Spotburger</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdEMrEdu6MjmO-i1Eg-wtndmpMYAnje-EWN7sRXJLTDA&amp;s=10" alt="Bluezoom">
+                <div class="image-title">Bluezoom</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkchls9aowANCgWmzRVwzbQ8eTcfdZRmQHb_cEJAoLwg&amp;s=10" alt="Spotzoom">
+                <div class="image-title">Spotzoom</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJe_DLCQB9MGbOUBv6fseC4pupcnHOUfR99KKG60WPpw&amp;s=10" alt="Bluenoodle">
+                <div class="image-title">Bluenoodle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShvX72ovDwqXo_D8oVSe93NkSXLkQq-pxfjlVyeSPHQQ&amp;s=10" alt="Spotnoodle">
+                <div class="image-title">Spotnoodle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJvs7lzlsm9jsoOlJXWxDdrWklruHbGQcrHAm74pbuBQ&amp;s=10" alt="Bluebonk">
+                <div class="image-title">Bluebonk</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS26gOhOTulcKBewup0gbPuJnhCJfgRMp6Yv-LQNid8DQ&amp;s=10" alt="Spotbonk">
+                <div class="image-title">Spotbonk</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuSL6FqyFNzn6jcn0Gwje9UV_NkdrOR5PKI1BbNbdoZA&amp;s=10" alt="Blueglow">
+                <div class="image-title">Blueglow</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4uH5Rf2YUHmXNJsBMThink6uGUVZpOKEvHpZRDxK6sQ&amp;s=10" alt="Spotglow">
+                <div class="image-title">Spotglow</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS2rA9lYht4ZmMV44Q8LbcBzRcAz5wjjo1Ysz0loFuLw&amp;s=10" alt="Bluepickle Jr.">
+                <div class="image-title">Bluepickle Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1cldn1UntT6PzVx-uT4gdlpIt623p2lls3s4Sr9h2aA&amp;s=10" alt="Spotpickle Jr.">
+                <div class="image-title">Spotpickle Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT64Afk6nAZzM3ncLdNebcwp0EB_cD7rzAaJurgIfiy-g&amp;s=10" alt="Bluebouncer">
+                <div class="image-title">Bluebouncer</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFhtkFMcFQS63Yh8rDxOLLhyI_gq7gEbYsmVTI-3MAcw&amp;s=10" alt="Spotbouncer">
+                <div class="image-title">Spotbouncer</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4k6vEIjbnl8b1ZYpfqFU8JEbHRVdVLRFQ1qfC1F7qOg&amp;s=10" alt="Bluewiggles">
+                <div class="image-title">Bluewiggles</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaT7X4uJxk0U3TIol39F7gchlQfxLQaksfCRD8UyCQSQ&amp;s=10" alt="Spotwiggles">
+                <div class="image-title">Spotwiggles</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNfmWpt_pBBxpQvNqnTl3TSWg-CkLTYbuUqa0M-5mtMw&amp;s=10" alt="Bluepuff">
+                <div class="image-title">Bluepuff</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuVcFz0HODNnuquaDWIoPT_QnILK43n5wG0mwnxlaH6w&amp;s=10" alt="Spotpuff">
+                <div class="image-title">Spotpuff</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdPzMKnqMtu52EVgVbIL7coBfs1a3ObpZHmfWCjywET5kgQmFz9yBt&amp;s=0" alt="Bluecrumb Jr.">
+                <div class="image-title">Bluecrumb Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqctH_Ugk_xAZzh9jl9Gm-uGbpzVKiZdPCkmbryNAtmaVzHcjzUX15&amp;s=0" alt="Spotcrumb Jr.">
+                <div class="image-title">Spotcrumb Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0z_MyCIpSGQx6kP471lhuiojhFXykBMkGB8uNDdEgo2kx2s44jqdn&amp;s=0" alt="Bluezilla Jr.">
+                <div class="image-title">Bluezilla Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAaVQeYI3z9Uo7JpKs8Fe72TF9jRHzL00kc7S34sEvRQ&amp;s" alt="Spotzilla Jr.">
+                <div class="image-title">Spotzilla Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRACSEtvvq5jTyp_LCseS_P9V1yTD0IlRhcTMR9J5VNQ&amp;s=10" alt="Blueboss">
+                <div class="image-title">Blueboss</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbxnTlN2rRYtNKmhIXrAE3zWpZQv3XULmUp9ubcwNbNg&amp;s=10" alt="Spotboss">
+                <div class="image-title">Spotboss</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIYuhee7jSwNEr0EXFk78PTSZsmqhXmC7KPPE13sny-A&amp;s=10" alt="Bluegoober">
+                <div class="image-title">Bluegoober</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTH6Cm1bNJToQN-RSu1nmNs25vTu8Jh5PJFNEL02cnPQ&amp;s=10" alt="Spotgoober">
+                <div class="image-title">Spotgoober</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5saXylHBBP7kKGQ9ADJ9YUPO7eToziyLX1KqLbforxQ&amp;s=10" alt="Blueytron">
+                <div class="image-title">Blueytron</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlUlHlpjgmFjVEWRrIBGJUQiQB_v7TQsX14FLnVj5FZA&amp;s=10" alt="Spottron">
+                <div class="image-title">Spottron</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXMK0ZAUKdo8XTkH2t3khmHBA9ey9X5cPjFGmmYWLVzw&amp;s=10" alt="Bluewig">
+                <div class="image-title">Bluewig</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDfeV9j4-0nnVzVtICFdYCqqGpS9Mj0pwOIyjFP-1NlA&amp;s" alt="Spotwig">
+                <div class="image-title">Spotwig</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9W85ua59LYQRVU2fXd3WqqeV4w2Bbp6Tph2psusWfbw&amp;s=10" alt="Bluechomp">
+                <div class="image-title">Bluechomp</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1-l-2UuLs6pE2eaUkxxD4AX5j17oGT5tYuaty0q_2Lg&amp;s=10" alt="Spotchomp">
+                <div class="image-title">Spotchomp</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTM-hsfesvRH0_vO8mPoZGdsW4KscsxeU6408zefX-cZw&amp;s=10" alt="Bluezoom Jr.">
+                <div class="image-title">Bluezoom Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3BXo1hyih8FkTC1tRHMcoHuCBsMhwcY9TGhdpdFWtlA&amp;s=10" alt="Spotzoom Jr.">
+                <div class="image-title">Spotzoom Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtjsHWg3E7VrAAVcargmCgqDzFSFUP8bANYduwD-NcwQ&amp;s=10" alt="Bluedoodle">
+                <div class="image-title">Bluedoodle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNQ7kFwG74prxlNuvW2JX7QV8pozweTUpRjRBnolQi0g&amp;s=10" alt="Spotdoodle">
+                <div class="image-title">Spotdoodle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEXXyBaSMAwEJbsgtldl-H7r7lciJjz0QY1daQvGnqIQ&amp;s=10" alt="Bluebeast">
+                <div class="image-title">Bluebeast</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8wQYfJdrwspXKBhSHmNcc5TY74UzU0euv7I5d5lfiKg&amp;s=10" alt="Spotbeast">
+                <div class="image-title">Spotbeast</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReRqdQrPIJux9-GnFSih9dCOSxecG2O0Fj2TpmMaRRYQ&amp;s=10" alt="Blueboop">
+                <div class="image-title">Blueboop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmxy-R86uknGjEFB1XgZ8Qqc_Z9zxMCHYN1ZuXrZlTWg&amp;s=10" alt="Spotboop">
+                <div class="image-title">Spotboop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ4RoWj8ReGE1Nl34gyLjLxHmHABzbXf6qv3yL2wHLvA&amp;s=10" alt="Blueblink">
+                <div class="image-title">Blueblink</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWga5EYPV-2zXXXvrEzR7pA2s41xndoI7PDwCnXM7qCg&amp;s=10" alt="Spotblink">
+                <div class="image-title">Spotblink</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKrIkMKAbQwGnzUCF79fzCEQ0ao3EPLUujxsxRNRCo5A&amp;s=10" alt="Bluehopper">
+                <div class="image-title">Bluehopper</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3h5uokQd2qS-roCToZYhaLosCSPAY-YEoEyy6uuIX8A&amp;s=10" alt="Spothopper">
+                <div class="image-title">Spothopper</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOsGN0AhpsFRwgDuHeXWC2wZjVqOd10ET7YM6x8rwmLA&amp;s=10" alt="Blueflop">
+                <div class="image-title">Blueflop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4S8NsBJ-GtDiHvsItB6LCx_9dMwuP1U4vCrQsbX1XBf48ON136ItV&amp;s=0" alt="Spotflop">
+                <div class="image-title">Spotflop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSO9E3FV8wZZeDozG8G68gDNVQxOi1q4tDxNF4-PeDu&amp;s=0" alt="Bluechunk">
+                <div class="image-title">Bluechunk</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9jixGMdlXotLa2930fOKB_C2CVkIjLa83IRIS6-Nur0hBPzk11rzA&amp;s=0" alt="Spotchunk">
+                <div class="image-title">Spotchunk</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcB11G0odFUu0ShpSoFRhNt3V0c5jYRBpixcaqUlBXBg&amp;s=10" alt="Bluefizz">
+                <div class="image-title">Bluefizz</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZLvgt1iD7v-MFckO5TiYnuQRdFfsXjDaqOzakrJol3w&amp;s=10" alt="Spotfizz">
+                <div class="image-title">Spotfizz</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS89yO8IhNLNAzmmxw8rI5n4Jjx9oVkfQ0v8N6_vadk7g&amp;s=10" alt="Bluewhirl">
+                <div class="image-title">Bluewhirl</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7043dX3R8j3UjiOgy86aApLu9TAmizo1P7bdYLW4OsQ&amp;s" alt="Spotwhirl">
+                <div class="image-title">Spotwhirl</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc8ioyMwFnjmRBhnajk4uPxh0zT78oKdUD7iObSAzBfA&amp;s" alt="Bluey McBlue">
+                <div class="image-title">Bluey McBlue</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4nQZk_64PZqRuZrEpRRXSXq29Dj-o89otvAV_tkXbXw&amp;s=10" alt="Spotty Supreme">
+                <div class="image-title">Spotty Supreme</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfna5yFYzSMJDUcfNYr8NP5wTHPaM28KP0xj3YWM98qQ&amp;s=10" alt="Blueclaw">
+                <div class="image-title">Blueclaw</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwSuR5sTjZ6OrLrjSAAThxvnvmW3eDovj5gAEL6C8VeA&amp;s=10" alt="Spotclaw">
+                <div class="image-title">Spotclaw</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1gr43WPEo1-FzC3kohtfFwEMEwngruEIr5TD58Qr2Cg&amp;s=10" alt="Bluegloop">
+                <div class="image-title">Bluegloop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpVyhbglw69Fsk1fpX4LH2MwSsarkwncX8JhfEFaRzCg&amp;s=10" alt="Spotgloop">
+                <div class="image-title">Spotgloop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9aUtyXzoQ_OHMPcDAGhsW1DyqtP5XXiZyYV4sMVrggQ&amp;s=10" alt="Blueplop">
+                <div class="image-title">Blueplop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAFYNm5P-ttK_O9G-T40xEjxW8ss5d-DLQJ_7Y3_INTQ&amp;s=10" alt="Spotplop">
+                <div class="image-title">Spotplop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNdPe1T2um7K8tF7DqTppU9csAmJ-fF2_70mbVqrloaA&amp;s=10" alt="Bluebuddy">
+                <div class="image-title">Bluebuddy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvmweblNrsxVfyeguNyXEo5Sh2qJO-z5Mgo8PAndlKtQ&amp;s=10" alt="Spotbuddy">
+                <div class="image-title">Spotbuddy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8FIXCbla-Qz_g47SrfdL-V4DziHyIz8Y5EL4h5u98uA&amp;s=10" alt="Bluey Supreme">
+                <div class="image-title">Bluey Supreme</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpHTK1bObfXO14fnYrtmm7sw1dNBx4DbmK9lEtiPEW3w&amp;s=10" alt="Spigiloduddy Jr.">
+                <div class="image-title">Spigiloduddy Jr.</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsUIRsA7lILUk73AQ2-la2_3xTz1J-w15SL6bMmLIcTQ&amp;s=10" alt="Bluey Spark">
+                <div class="image-title">Bluey Spark</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQueWVEdE4_l7ijFgo6qh70La5a4x1KEeHG_T7lL20F1Q&amp;s" alt="Bluey Dash">
+                <div class="image-title">Bluey Dash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBVNTmm89W1UU2wu6_VT-6rIR1ixqxharXDhkOcjYiwg&amp;s=10" alt="Bluey Blip">
+                <div class="image-title">Bluey Blip</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRG8qj6hYq7LT1xF_BYs5HxMIh9H6Hbsi3CzTbO5PGZFQ&amp;s=10" alt="Bluey Niblet">
+                <div class="image-title">Bluey Niblet</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStAY3EoWgDVJlrGGrQFj4wX_D30sc55m4pUCx8dcv0UA&amp;s=10" alt="Bluey Snout">
+                <div class="image-title">Bluey Snout</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3v8rnIsVH5ZhhVAnppqd2xIPCVpu9qolgiZI9YtKmCw&amp;s=10" alt="Bluey Scale">
+                <div class="image-title">Bluey Scale</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5lT4XsIMXnYgGvmhoS4HCZDugmZ4RO1BCn9BRl_xD3w&amp;s" alt="Bluey Mallow">
+                <div class="image-title">Bluey Mallow</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCJLC8iZMz6mnDtYMib82rQ6kTkUY1BsKx0UYp6mR0bw&amp;s" alt="Bluey Cookie">
+                <div class="image-title">Bluey Cookie</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToXUml4c4xvGehqMBYsMdoke4A4-TpbtgJMYb5aOIo&amp;s=0" alt="Bluey Waffle">
+                <div class="image-title">Bluey Waffle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMtSWZmCItVY1IVyAxDA0kFo0PVz5w4I_KCL4ptv36&amp;s=0" alt="Bluey Pancake">
+                <div class="image-title">Bluey Pancake</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnuYq0RcDlwQaxmM-uGESgOKyTNHm7k4FxCUBGZdCxfg&amp;s=10" alt="Bluey Muffin">
+                <div class="image-title">Bluey Muffin</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQthOXDjRviB51l9iqd3qwjGmsRbW9NqQFW0k8zGnaBA&amp;s=10" alt="Bluey Donut">
+                <div class="image-title">Bluey Donut</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT48_jHRacGJQLYjjOEZbcVyMKoejMFHiuPqiV-1E4afQ&amp;s=10" alt="Bluey Pretzel">
+                <div class="image-title">Bluey Pretzel</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVi2cAr7BhMUyjImWcvcGFZRQYg54uSBltfWTSPZrTAw&amp;s=10" alt="Bluey Bagel">
+                <div class="image-title">Bluey Bagel</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgMe8S-eK3Z9uROt4lMVjqwHsEccV27zuCcHPRM8N6ew&amp;s=10" alt="Bluey Scone">
+                <div class="image-title">Bluey Scone</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmeQgukj4ZgTqglM-5u33MDxXvhCyJpsDuejr8X1E2uw&amp;s=10" alt="Bluey Tater">
+                <div class="image-title">Bluey Tater</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnCISXyFTpsngH-jnLr3CO0UTOHoiavq689rV3D1IPVQ&amp;s=10" alt="Bluey Fry">
+                <div class="image-title">Bluey Fry</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuQwsEvKORMMPu3EHPvhJu4tfpDCfV2N8IJ2xlU6KQ5g&amp;s=10" alt="Bluey Patty">
+                <div class="image-title">Bluey Patty</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQGXAQmTBflHjLRK5m7S-gzyY2WKqkJLVcohH8JhBdmw&amp;s=10" alt="Bluey Taco">
+                <div class="image-title">Bluey Taco</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIfZBHZU88bI_QCMeu5p1RPJ99oFOODwyg19q_6YW4Kg&amp;s=10" alt="Bluey Burrito">
+                <div class="image-title">Bluey Burrito</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT63a4g20HFUI20n_jMOKbyDAdHWLq21PLYzdAHggw5QA&amp;s=10" alt="Bluey Pizza">
+                <div class="image-title">Bluey Pizza</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmsxv8H05cyp_UcHAXcrEtlhJOgniEACF72y-KOBzvsA&amp;s=10" alt="Bluey Ramen">
+                <div class="image-title">Bluey Ramen</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBx5IAd1efEyKYhUv6GDV9reKaxqanoIyOuHm-U_3WtQ&amp;s=10" alt="Bluey Soup">
+                <div class="image-title">Bluey Soup</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSExld3EpgM7xzx6F8Bvo6xblkMO83Wjvf4IolHCq8g_w&amp;s=10" alt="Bluey Stew">
+                <div class="image-title">Bluey Stew</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHYqUYMBrbTMrjnTGyOjXj9YkKQN41FSo8khhPxr4_Lg&amp;s=10" alt="Bluey Chili">
+                <div class="image-title">Bluey Chili</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWGeV26TmpAylcWZ3ZWB7y5ZKmidYMq5d6dsxQ2UDQuQ&amp;s" alt="Bluey Salsa">
+                <div class="image-title">Bluey Salsa</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_Vmw3e7lKxtkrOGVPcW-VjnJbK5r8VmAmnwja71zy6g&amp;s=10" alt="Bluey Guac">
+                <div class="image-title">Bluey Guac</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToiHI3yTFel10ierLfOW4Av4trthJwj_1iQefsk6GuFw&amp;s=10" alt="Bluey Dip">
+                <div class="image-title">Bluey Dip</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7hiUUBnN_M6QwYGOP1goMD4MKSyPyB7Q21TY1r24goQ&amp;s=10" alt="Bluey Sauce">
+                <div class="image-title">Bluey Sauce</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSomPS5Zrx9wBMHXGcw9z0hhxZOARSTrrB18EVsrLpNXQ&amp;s=10" alt="Bluey Gravy">
+                <div class="image-title">Bluey Gravy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1XGjAG8Mk7VTDdS9QD1gLWTD1RFVy68jq5deNTkPKdg&amp;s=10" alt="Bluey Syrup">
+                <div class="image-title">Bluey Syrup</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuViXW6S_xkQoOnvmLEN61xmbb4Z1JMD2mQ7di_s_XTQ&amp;s=10" alt="Bluey Honey">
+                <div class="image-title">Bluey Honey</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZBd7pT49VLeogiRbiXuDfhYAjfkzRuWd8AeUlAoucdw&amp;s=10" alt="Bluey Jam">
+                <div class="image-title">Bluey Jam</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTd1xpEUkpHh3sGrr7Ao1KadV-1uRfGWLRzauYcXApvlA&amp;s=10" alt="Bluey Jelly">
+                <div class="image-title">Bluey Jelly</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWM6nqJTL5khdjgVqAQFsXYGer2rXwdfllO1faHHXZpDXBAE4amI-e&amp;s=0" alt="Bluey Butter">
+                <div class="image-title">Bluey Butter</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLXp2L7GLlSW3QWrRYbrKHQFibDum8d16nN_uvS4yPwg&amp;s=10" alt="Bluey Cream">
+                <div class="image-title">Bluey Cream</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPJxcouUcCCmuCeTcrq7pteckIiPO9H3Zx0tAatEX1Kg&amp;s=10" alt="Bluey Cheese">
+                <div class="image-title">Bluey Cheese</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZxJWDfOMcLZhLy0RgDckQ7lxZGrS1CIskj94e-Ek4iw&amp;s=10" alt="Bluey Yogurt">
+                <div class="image-title">Bluey Yogurt</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJXsK0vAvPg5X9zc2n2rO-k28ApK7pkh0fbqfxhf2W7A&amp;s=10" alt="Bluey Shake">
+                <div class="image-title">Bluey Shake</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhvEXvxD0F-9X8xcDyMER-A4bNj3YhVQ_JwldUnkSJJg&amp;s=10" alt="Bluey Smoothie">
+                <div class="image-title">Bluey Smoothie</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnLbZrKLC8fCIz2zJ9Ry5qmUkckAMOuVbJBTsx0cs9Rg&amp;s=10" alt="Bluey Juice">
+                <div class="image-title">Bluey Juice</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9nTrO9ER_cuN2cL35-JwFM6NpspPlYjY2zA8ZYaD5hw&amp;s=10" alt="Bluey Soda">
+                <div class="image-title">Bluey Soda</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdKeZ_wvHk6dfZJSD5MHloLc0USqOy4If3fs0I9kQwGw&amp;s=10" alt="Bluey Cola">
+                <div class="image-title">Bluey Cola</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQioxuDI6tdIc1t6I8Qk1Lee5wrkzHtIkhzvr7oWRj6PA&amp;s=10" alt="Bluey Lemonade">
+                <div class="image-title">Bluey Lemonade</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbbFLlTpsQyPBIH4r0uNHh4BAPAG5n5fn7Rq-ld2Bbcg&amp;s=10" alt="Bluey Tea">
+                <div class="image-title">Bluey Tea</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRECYq_NdbgIHATqNbefeSdGxk9gtKt0ESksEZ34FR2yg&amp;s=10" alt="Bluey Coffee">
+                <div class="image-title">Bluey Coffee</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx8dfMG9cNZjM8B7Zevi2IvJSTg4RSHzsXckia6H1vpg&amp;s=10" alt="Bluey Cocoa">
+                <div class="image-title">Bluey Cocoa</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGSiMLPO0xudixIW3RLeyd9sBJybPQA7fOot8Fl-C1Lg&amp;s=10" alt="Bluey Latte">
+                <div class="image-title">Bluey Latte</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQomiFymq9kAvedIngaAvDBRkHAf9dU59jH6NjsFfCsiw&amp;s=10" alt="Bluey Mocha">
+                <div class="image-title">Bluey Mocha</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaJXo0aDodo8z7cFu4a-BrF9vr5Zx6IadLKgtPsvw3SQ&amp;s=10" alt="Bluey Frappe">
+                <div class="image-title">Bluey Frappe</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1BkauUoIg1Nqg-BVS_EizNJdVWpYPqnyvJUK8rgG3kg&amp;s=10" alt="Bluey Slush">
+                <div class="image-title">Bluey Slush</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqucVv24NwBM8km2cEdnWfVulFTPvhcIcwo4w5jfuYzA&amp;s=10" alt="Bluey Snow">
+                <div class="image-title">Bluey Snow</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVpWY4fST2t5GCKLIxR5mZXDew6hNmCO7DAnYfmG73-Q&amp;s=10" alt="Bluey Frost">
+                <div class="image-title">Bluey Frost</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpeD54DZ4_jbPhuV4-1B-TFo4DMJeL7TG-t2bqBOJRPg&amp;s=10" alt="Bluey Glaze">
+                <div class="image-title">Bluey Glaze</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkBsPIz2oCP0oMa48iQ9lL5tVpo8kYv8wx4c6wNTpO7Q&amp;s=10" alt="Bluey Icing">
+                <div class="image-title">Bluey Icing</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ94HTLbxWOFd7xO9CFe2Thf8tC0JgzXhvFsC7nyS-UqQ&amp;s=10" alt="Bluey Sprinkle">
+                <div class="image-title">Bluey Sprinkle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwS4HbW1wa0KLvQzwpfSziAzOGCf3TPPpVteBL6eShaw&amp;s=10" alt="Bluey Confetti">
+                <div class="image-title">Bluey Confetti</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbF81eo0lJiz9IincApPyLCtmgwPcgNvdoi1lSIZ929Q&amp;s=10" alt="Bluey Glitter">
+                <div class="image-title">Bluey Glitter</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDYM-lkZnS-6_zcI7nFK6TfhdSwPtf_x6daEWPFMC6Yw&amp;s=10" alt="Bluey Shine">
+                <div class="image-title">Bluey Shine</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuzmcWFdZUt4VxkDsWN9aLQqMLeuyny4SIVy5laR9uxw&amp;s=10" alt="Bluey Beam">
+                <div class="image-title">Bluey Beam</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAfb94DJAaYi5BjPKXWH9QXaCk7WrGqAkYi3KBRKdjXQ&amp;s=10" alt="Bluey Ray">
+                <div class="image-title">Bluey Ray</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtg3jLtdOWwDRkm1Oo3KgyABmAeNRU7AGdON87RWbmfg&amp;s=10" alt="Bluey Moon">
+                <div class="image-title">Bluey Moon</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGlq9OyhJhOxpL5uBj3t_QTpFpBY4GZh3frfAP_G4Z7A&amp;s" alt="Bluey Sun">
+                <div class="image-title">Bluey Sun</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMEcsRg63bMlvDNthzI8x5CHfx8C--HvWlFBlAWCKpPw&amp;s=10" alt="Bluey Cloud">
+                <div class="image-title">Bluey Cloud</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSCzuTWhvlsj0q6M1MuWsD2TpzeoKnV9Lh6MwPwHYmLg&amp;s=10" alt="Bluey Rain">
+                <div class="image-title">Bluey Rain</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB1vGYYaCgJvEPWf2vzQscePsvhJIC--gbG6pPH8gM8A&amp;s=10" alt="Bluey Storm">
+                <div class="image-title">Bluey Storm</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSouOVUo5dcayAL82r_x1putjuwegDwKZXfQtMs4599ag&amp;s=10" alt="Bluey Thunder">
+                <div class="image-title">Bluey Thunder</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpSAfEEvstRCc89Bas1TGMi1rdgBjw4eDux6vH5ZnovA&amp;s" alt="Bluey Lightning">
+                <div class="image-title">Bluey Lightning</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmJ0l418q88BRlnHvZO1npfZX8-PUusPniQVENHAA5Pg&amp;s=10" alt="Bluey Ember">
+                <div class="image-title">Bluey Ember</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIWDj_ZidBWejP5_dSIPssa4GVH-kZrRIl114HWz31kA&amp;s=10" alt="Bluey Ash">
+                <div class="image-title">Bluey Ash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsBoGVl0HQSfsecIjU4sbGB7DYTqt8DoOSoIuY9fq6GQ&amp;s=10" alt="Bluey Smoke">
+                <div class="image-title">Bluey Smoke</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQY3HlRQ7cOzGJBk9Jm_v0ojjO-6wYvTgZbzkbgVWMGAA&amp;s=10" alt="Bluey Fog">
+                <div class="image-title">Bluey Fog</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFND57yX0N-PVjBb5yn1DX0osbRg4Qs-ieYol2768bhQ&amp;s=10" alt="Bluey Mist">
+                <div class="image-title">Bluey Mist</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaNUGJuf7NjhrNuZ_Yp8pKIHjMk4RHWitaZif4WOrITg&amp;s=10" alt="Bluey Dew">
+                <div class="image-title">Bluey Dew</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU3LDIK47Byxq-dF54APOw7-tv2BILuIUxN6IZ5nXU2w&amp;s=10" alt="Bluey Drop">
+                <div class="image-title">Bluey Drop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWD-vQ3iCaLjcteEkS4y8lzR9A0sVHYZKvDJRAo5MFFw&amp;s=10" alt="Bluey Ripple">
+                <div class="image-title">Bluey Ripple</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXJZtNG4zRIkzG5bYXwPpjqOABCqgOR4FQ93osimesuQ&amp;s=10" alt="Bluey Tide">
+                <div class="image-title">Bluey Tide</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuV8YZFx6y8dNNXuryvtDQiQHciW1IxXUg_jSZFmzJng&amp;s=10" alt="Bluey Current">
+                <div class="image-title">Bluey Current</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFukJjyB-anDZplWCwTYB8vWr74UXjNuBiAW6snAeDSw&amp;s=10" alt="Bluey Stream">
+                <div class="image-title">Bluey Stream</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7ldxuPOVA0sOXtYPrHJ_UNL92kBFN_XPh_EKt9R-xKg&amp;s=10" alt="Bluey River">
+                <div class="image-title">Bluey River</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTupnjx6fEG96KtV2P_vTuFHgrrwQxXVc58iSaRYCypZA&amp;s=10" alt="Bluey Lake">
+                <div class="image-title">Bluey Lake</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-K4oyy8AjL-YBBEKm1UPa-_hnVbWAWmx_TLo3i2fV0A&amp;s=10" alt="Bluey Pond">
+                <div class="image-title">Bluey Pond</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTypN2cZMifjYzFzMbZPHcN9ztABN9OH8BArkqHKdC1rg&amp;s=10" alt="Bluey Splash">
+                <div class="image-title">Bluey Splash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQC--7ZVNALhIca0cVPVcl0NSV9lyZuiY_xHccPU6znHg&amp;s=10" alt="Bluey Bubble">
+                <div class="image-title">Bluey Bubble</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIoscwNyO2FTvh_RjZhzoLYoIkUdLunNoEIoLHO6brPg&amp;s=10" alt="Bluey Foam">
+                <div class="image-title">Bluey Foam</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoM76KPlA9KehMWQOZ8yioHy6YeQLAe6KPmXp3Y-2w3A&amp;s=10" alt="Bluey Froth">
+                <div class="image-title">Bluey Froth</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPes4uIY8JIASdmhhQQ9xg8gdhYhCh6Yhwb4iM-FANRA&amp;s=10" alt="Bluey Bang">
+                <div class="image-title">Bluey Bang</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV9EBdaWzHxvvfUql7YhQ-bWBhop6j_CN1Ws6_k83UTA&amp;s=10" alt="Bluey Boom">
+                <div class="image-title">Bluey Boom</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREFJiJ2yh1aQQID_7zrDHQf_GoRmZdlArpQ4ybVBEJJQ&amp;s=10" alt="Bluey Crash">
+                <div class="image-title">Bluey Crash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnlo_ZJVO5TM_E7N9L54XPbFKhXPlLmasnCykdogHRjg&amp;s=10" alt="Bluey Clang">
+                <div class="image-title">Bluey Clang</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdNZdULTUc7pxxzxlNznA4ofBPpAl6IHUUW4V-pidKFQ&amp;s=10" alt="Bluey Clink">
+                <div class="image-title">Bluey Clink</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmDuK9utc48dkvGcnCCA6oQJmNuAW4rG8Be4V_Q4qCLw&amp;s=10" alt="Bluey Chime">
+                <div class="image-title">Bluey Chime</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISyy3vy2-9WhSP03xsqndXlLmsJk7vn_TS_WV-FIO0Q&amp;s=10" alt="Bluey Toot">
+                <div class="image-title">Bluey Toot</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqexExmsFFXcnpEk5seN4O0wTGLPsYNK1yvfmUGxoaiQ&amp;s=10" alt="Bluey Honk">
+                <div class="image-title">Bluey Honk</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRt6hBig8rkAjMoGy4-WOylxLCYDFpM7E7EuMzmmIU1sw&amp;s=10" alt="Bluey Beep">
+                <div class="image-title">Bluey Beep</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBPB9GlFE_CSNH3nFhWvKm012rov_w_B44Z7OL6E81ZA&amp;s=10" alt="Bluey Bloop">
+                <div class="image-title">Bluey Bloop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf0PtCaOP2SKBj49GeWWPG2rDqiTaK3lg9LnfoMaoqwA&amp;s=10" alt="Bluey Blop">
+                <div class="image-title">Bluey Blop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnE3qG6Cv1r5xuyKIvSWyukcWsYLBxvG9oasePW2Z5Dw&amp;s=10" alt="Bluey Plip">
+                <div class="image-title">Bluey Plip</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZgpTkREXmL9x1VwudLwGKrMxrytmfJ1cme8VFEsJoBw&amp;s=10" alt="Bluey Plink">
+                <div class="image-title">Bluey Plink</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVUY2DNORCNx48jlPvavF9Wnp49UEIL2kDWllM8QcryA&amp;s=10" alt="Bluey Clack">
+                <div class="image-title">Bluey Clack</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRT3NfP7FMEt7FMUwymKITsS-TQz3UQNVy3qJlp1qZH2g&amp;s=10" alt="Bluey Click">
+                <div class="image-title">Bluey Click</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuGdg_wWMMO0FmleqVLnnO3KhyFQxSeLMsLUu72Lm0Pg&amp;s=10" alt="Bluey Tick">
+                <div class="image-title">Bluey Tick</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBkszP3jJ-y4L1XmTi4zKxe2MdxVljJFX0CZCqVMSVGQ&amp;s=10" alt="Bluey Tock">
+                <div class="image-title">Bluey Tock</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxEPCSeHSakGd_1OcHCnc9PbPy6Ybt9GQrekNNzptpQQ&amp;s" alt="Bluey Clock">
+                <div class="image-title">Bluey Clock</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4PAMmKWlmEll46vPqG_sHe658UAJ7eTGiQhN1J5V44w&amp;s=10" alt="Bluey Watch">
+                <div class="image-title">Bluey Watch</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmEPmNxhqe1OobzqsRg3ycKM6WpDI6Uo_Sr3yMmHrTXQ&amp;s" alt="Bluey Timer">
+                <div class="image-title">Bluey Timer</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfnTxdpvOqgAsLsqwcqVkPCwKsfFYFtyU7baDq-nM_dA&amp;s=10" alt="Bluey Alarm">
+                <div class="image-title">Bluey Alarm</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAqIfTNqVgJN207qFeXs3F6CZ18qa8xsWzA-jWahu_sg&amp;s=10" alt="Bluey Sparkle">
+                <div class="image-title">Bluey Sparkle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTjatYSUvjNeAVypVWxCoH4CuS74D2Ns-6oLkOkyEsgg&amp;s=10" alt="Bluey Twinkle">
+                <div class="image-title">Bluey Twinkle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzaxTyjdk4FvK8rt6kvx5Tj8GVypACe1voke-YHVxr1w&amp;s" alt="Bluey Glimmer">
+                <div class="image-title">Bluey Glimmer</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH61TBmnlCJsohADZseKtBIvHXkiq3rTeW1-A45gCCmA&amp;s=10" alt="Bluey Shimmer">
+                <div class="image-title">Bluey Shimmer</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7WWX9Bc67OO-GacPLTWuYg1MBlQUQ33g_ddT2ZhNJyA&amp;s=10" alt="Bluey Gleam">
+                <div class="image-title">Bluey Gleam</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHUyPzwi1BITQC0bT_ndiQUGe5GTqwrVTvjEiAgdrd7Q&amp;s" alt="Bluey Glowstick">
+                <div class="image-title">Bluey Glowstick</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTLwE3Mmk3aCIovPvh92Vhexa8pctc8ZlgrjcWZLYYpeg&amp;s=10" alt="Bluey Neon">
+                <div class="image-title">Bluey Neon</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKy07PG7vbHBy5rTGNzkK2D3aMbXefsKGPzzeFnGS5JA&amp;s=10" alt="Bluey Plasma">
+                <div class="image-title">Bluey Plasma</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3ORDcaWP8lHqJQNKN4z5sBb--MSpfVLPcyN69TDOSPw&amp;s=10" alt="Bluey Orbit">
+                <div class="image-title">Bluey Orbit</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpaGF6WAVzLFHYeypIBS72c7DIaI1lHzfxqHLME4J-mQ&amp;s=10" alt="Bluey Cosmos">
+                <div class="image-title">Bluey Cosmos</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_kno_2O9NacCC65KAvrSjEkZFthnUvQ7ER8k5SOTiLQ&amp;s=10" alt="Bluey Galaxy">
+                <div class="image-title">Bluey Galaxy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTznG2zt5gvpwfPzIIrj-g5-7CBXKt-1F5ztVnRuY303A&amp;s=10" alt="Bluey Nebula">
+                <div class="image-title">Bluey Nebula</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmSQ_uwNMx_pfE31GYiePycUPrG3mxIQ2YFzDOJFJoEw&amp;s=10" alt="Bluey Quasar">
+                <div class="image-title">Bluey Quasar</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTXV_U2OfqQ2AJFIsBpHIXfqp1w2cKoPrZAILNZ-LbjNA&amp;s=10" alt="Bluey Nova">
+                <div class="image-title">Bluey Nova</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnwrzOwuX9TRl6mbxr0qHYW9qIfj7IHXPShv0JyUg_MA&amp;s=10" alt="Bluey Pulsar">
+                <div class="image-title">Bluey Pulsar</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZuCcS-BaIJyaJAumnf3C-ylU1WUJ-FgkR6daF_-AIVQ&amp;s=10" alt="Bluey Meteor">
+                <div class="image-title">Bluey Meteor</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6K_31VWVNAFg3GnUXQYQlXPXO46Cl3XVu5-aCkRjeig&amp;s=10" alt="Bluey Comet Tail">
+                <div class="image-title">Bluey Comet Tail</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMv2RQSJs8R7KXFdXghmQoOtek0AO-7HZkp1LSE9Knbw&amp;s=10" alt="Bluey Asteroid">
+                <div class="image-title">Bluey Asteroid</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiLXDHN15BLdXJYWbcOVyjfGJ2nyIwN_fDbcw3tPIX5Q&amp;s=10" alt="Spot Spark">
+                <div class="image-title">Spot Spark</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReTa1Q6B0tQ76jfkEhCiikR23JsmdWhhn7PeIV4Ch97Q&amp;s=10" alt="Spot Dash">
+                <div class="image-title">Spot Dash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXJqvSbXN_MyOM4X3IxP2nKyL7nR3-cXaYX5wYXbYAOw&amp;s" alt="Spot Blip">
+                <div class="image-title">Spot Blip</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNrQNc-KCwkXHl2e5nsAwz0T5kh3M4V639bp2qOXAChg&amp;s=10" alt="Spot Niblet">
+                <div class="image-title">Spot Niblet</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShIaum24rO3JNtpyXqAtU9tmoMwfMhaQmwtyS4Kav00g&amp;s=10" alt="Spot Snout">
+                <div class="image-title">Spot Snout</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY4Rtr8EGuIu7TbNetUTwUiUvpb7mV35E7aU0od6da2A&amp;s=10" alt="Spot Scale">
+                <div class="image-title">Spot Scale</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9YlmOI1le5mh5A70S-jAJiBzniK_jTRaDqPHbfwrigg&amp;s" alt="Spot Mallow">
+                <div class="image-title">Spot Mallow</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYYgNttqrRPVdnSQAFcBkCsID2IZVkquBxrhf8MnO3PA&amp;s=10" alt="Spot Cookie">
+                <div class="image-title">Spot Cookie</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL2UA2ilL15v8MtHXfGpeArqPoieQVfP-GZPp2P1_egg&amp;s=10" alt="Spot Waffle">
+                <div class="image-title">Spot Waffle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU9pPTQtAxmt8yhy43ZAz8BVtpaAvkDo08FITi2nDM1Q&amp;s" alt="Spot Pancake">
+                <div class="image-title">Spot Pancake</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyFRpKPN4ef-zgpyQnZSibKu1Yp-h33HMsJ0lr5j9KaQ&amp;s" alt="Spot Muffin">
+                <div class="image-title">Spot Muffin</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrnVxNKRY8eXzMsPKwYHZHJiaeqU5osJusHL-LegNHXA&amp;s" alt="Spot Donut">
+                <div class="image-title">Spot Donut</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbHu76bhj6X4QwUdP8T-75uH4tqFTl8tR4w2J3P9NoXQ&amp;s=10" alt="Spot Pretzel">
+                <div class="image-title">Spot Pretzel</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZSBOBPaYdl6PlswbiBIGSN8ADyWcQi_fAq9SWKk4Je8da5tiLvoSrGCI&amp;s=10" alt="Spot Bagel">
+                <div class="image-title">Spot Bagel</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0ESa7Nss5uafyit338qzxsmjXbwnpz8k1PjC3cG4XyA&amp;s=10" alt="Spot Scone">
+                <div class="image-title">Spot Scone</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9QjKe90ixg3hlPHlsyD0Z0lPEeaNmfr-fa_URdqtL_Q&amp;s=10" alt="Spot Tater">
+                <div class="image-title">Spot Tater</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoVOVicmuLEFq9MoVihiz_roCRt7dKMgYWbsQyrwI-fA&amp;s=10" alt="Spot Fry">
+                <div class="image-title">Spot Fry</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNsQwWppPkOeOcaPumXCOJNIF_8mPQ8PkhYsFEmo4Bjw&amp;s=10" alt="Spot Patty">
+                <div class="image-title">Spot Patty</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuHNCcn40tB8tc8bx9b0DE69niQCDpcVf9Jb-AXUWtBg&amp;s=10" alt="Spot Taco">
+                <div class="image-title">Spot Taco</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEN_HqrzXc8p0AJM00BFaizkd7_nK6Aronr3-TAf9kug&amp;s=10" alt="Spot Burrito">
+                <div class="image-title">Spot Burrito</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIHvlM0cI3gnEQEPjqCqEeFkblPRm2uF4dcSOy1kcy2g&amp;s=10" alt="Spot Pizza">
+                <div class="image-title">Spot Pizza</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRULQBl_OXYBMJAscYxcqHxtCjw3WyONsYSRqAkw2_GVw&amp;s" alt="Spot Ramen">
+                <div class="image-title">Spot Ramen</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-xTXSjBbt9ecVqWPAT1XWFWJGfLBGyY9uKb8fN6BEQA&amp;s=10" alt="Spot Soup">
+                <div class="image-title">Spot Soup</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRK-rewS3VAJBHyN1y16bprl_FS4LTbEVOkZAUpYzfo-Q&amp;s=10" alt="Spot Stew">
+                <div class="image-title">Spot Stew</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZPZumQfXmkgtGBBd9GOiljKRGGfQH-yBn7WEj45ys-Q&amp;s=10" alt="Spot Chili">
+                <div class="image-title">Spot Chili</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-LzDjgadQz1sZfX1BSiWNOEqf2IWtnz_dFF-ubEcBaA&amp;s" alt="Spot Salsa">
+                <div class="image-title">Spot Salsa</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqUGkn4T4Jz3BXqIWsuhxcOJpsB0HbQf6X8t-RyHYnAg&amp;s=10" alt="Spot Guac">
+                <div class="image-title">Spot Guac</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPs_fnHpxNoFBJKkU9fhZl-DEQa3jrYUVfMroSyfIy3g&amp;s" alt="Spot Dip">
+                <div class="image-title">Spot Dip</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNJRV_S4nGXRpBWFx8ORRRcT1ozCGXkwq2Zlb-tZIX8w&amp;s=10" alt="Spot Sauce">
+                <div class="image-title">Spot Sauce</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNPxq5uAe54ew7cYV43H6MXjT8AOc56z0k5AxUKBr_GA&amp;s" alt="Spot Gravy">
+                <div class="image-title">Spot Gravy</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvPzeoJMOD2vyFe05ALPSxr_toLz2aDQkBRJjhFhd1yA&amp;s=10" alt="Spot Syrup">
+                <div class="image-title">Spot Syrup</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTafvWtGM6DkIbsZWLbazjk4qDoNnjdPLgPS3FnOJ9UUQ&amp;s=10" alt="Spot Honey">
+                <div class="image-title">Spot Honey</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEqxfHH1ow9aD1DnamrLBjvjPBZPSeXMl_mTjYeXCwzA&amp;s=10" alt="Spot Jam">
+                <div class="image-title">Spot Jam</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsY-tCPF_N38UaIqJhqJ_P0DeNdgsRZkjOB080yhOuHQ&amp;s=10" alt="Spot Jelly">
+                <div class="image-title">Spot Jelly</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQthrp_3baEq3Y8aAoOZHdeQha6c8ZIU0JIsIZ7luiiVw&amp;s=10" alt="Spot Butter">
+                <div class="image-title">Spot Butter</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAHbnSYftV_-xYZ3bd95_wSxtZ041mk5Proi11nkarAg&amp;s=10" alt="Spot Cream">
+                <div class="image-title">Spot Cream</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDy02h40HhUZQgfJguOYrF0xxGz5c-79vOi63MBtSi_g&amp;s=10" alt="Spot Cheese">
+                <div class="image-title">Spot Cheese</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQaCqJxEV8HcBLHEyFane4VQrXSRg7ES-Qzh4PizB0AA&amp;s" alt="Spot Yogurt">
+                <div class="image-title">Spot Yogurt</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLjjVUj9EcqJtn--xl6jj2dIMBJ-0iVPderHWxgxVdiw&amp;s=10" alt="Spot Shake">
+                <div class="image-title">Spot Shake</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGrr4fXuzqkNi8JZhgHI2t-gPgUU9gwhx8YB9jXS_sEA&amp;s=10" alt="Spot Smoothie">
+                <div class="image-title">Spot Smoothie</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOGoTs5V2uHp9dVoFsMYFa9MeSPs6qqEId_uWIYby2pw&amp;s=10" alt="Spot Juice">
+                <div class="image-title">Spot Juice</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3E-Yjb2veo6dEYp1JnC1yPBcJimXtemM80vlMsIuwSw&amp;s=10" alt="Spot Soda">
+                <div class="image-title">Spot Soda</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgkSwuKfe1nhNcxqUTBsg_k_lGxPFN342PhddJLtc_9Q&amp;s=10" alt="Spot Cola">
+                <div class="image-title">Spot Cola</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQy8OHoOUP_7n4vN1adbsg-i2l63URLF7Zl8bTSjELVxA&amp;s=10" alt="Spot Lemonade">
+                <div class="image-title">Spot Lemonade</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-8ST9VyuvjVxrb7eq3CK47j0ezBvJoZLinmdGStGw4Q&amp;s=10" alt="Spot Tea">
+                <div class="image-title">Spot Tea</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfRktLlaF88TBKlGUThrLAfkFmYNB76-pNDDuAZqJebg&amp;s" alt="Spot Coffee">
+                <div class="image-title">Spot Coffee</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8ItJ1sAH1P8zc9SaOFfMKY65rgqYQCHll4ql66A3MhQ&amp;s=10" alt="Spot Cocoa">
+                <div class="image-title">Spot Cocoa</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRW0mQd7yuhhhpoUwjmDr_rUtKW7pj7r2I0q6CiE2UPqQ&amp;s=10" alt="Spot Latte">
+                <div class="image-title">Spot Latte</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStpYayVy0no7ytjHR_7gJywo-XnuFoVYx4Xjr1M6CFeQ&amp;s=10" alt="Spot Mocha">
+                <div class="image-title">Spot Mocha</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRWJFnuX78gLSeeEkMGoech_rxbxPJ71_KAyzgoJxJaQ&amp;s=10" alt="Spot Frappe">
+                <div class="image-title">Spot Frappe</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgRHO4LLNJVb4T2RkHHAkIDUkHEviAY9HgSh_qS_xSAA&amp;s=10" alt="Spot Slush">
+                <div class="image-title">Spot Slush</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQukOkza-FWkRmTzoMJMqY-3JlDpeTZHfs49kyDK_MvQ&amp;s=10" alt="Spot Snow">
+                <div class="image-title">Spot Snow</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKdzyrZuG2NXkxkdXZ7Lr4TZDmKTPSwO2m_J6DAHAWDg&amp;s=10" alt="Spot Frost">
+                <div class="image-title">Spot Frost</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQow1KfnlQ5qZh4oonMElHBnhgKGzxygdXw9okoWehR2w&amp;s=10" alt="Spot Glaze">
+                <div class="image-title">Spot Glaze</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgw457t-hqAPa-R5kkh4SBf026qQjrQjFQrDlEilPlzw&amp;s=10" alt="Spot Icing">
+                <div class="image-title">Spot Icing</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqR4M_Ez19A1WyrL4IEAs3VEy31_PDz9VoqKsdM_jc-g&amp;s=10" alt="Spot Sprinkle">
+                <div class="image-title">Spot Sprinkle</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPvw_BFwmU3VopJfN6Q2Km_l28t_G1BxRLAzzmaEmXwQ&amp;s=10" alt="Spot Confetti">
+                <div class="image-title">Spot Confetti</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQemd64KCR3RMjVVQz27Ija8Gi8hbbe1Q8BPD2ZG02I0w&amp;s=10" alt="Spot Glitter">
+                <div class="image-title">Spot Glitter</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmgWcfJXiTL6GHQsi-DApnnueFjm597GzRLJy9LISEFg&amp;s=10" alt="Spot Shine">
+                <div class="image-title">Spot Shine</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmpNvigR-FSI0r5c4RB1s64K0DF2uIBdCka7aTcm1ZxA&amp;s" alt="Spot Beam">
+                <div class="image-title">Spot Beam</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsUveJgZLcuVEU9IDiyZQrY8IOhfVeb5EvrKRrCKlBjg&amp;s=10" alt="Spot Ray">
+                <div class="image-title">Spot Ray</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1CFbhBlUL63Cfuw4gsxHE6PIkjyjS5Qeyta0-gk6-_g&amp;s=10" alt="Spot Moon">
+                <div class="image-title">Spot Moon</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvZVuQetAWPK6mDVk5n8OTtbscQS7KcoIrplX9zq_hiQ&amp;s" alt="Spot Sun">
+                <div class="image-title">Spot Sun</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeqUKNF6DLSwB14U7CyU3o6ovNqgzrTQulWw3YfhtCEg&amp;s=10" alt="Spot Cloud">
+                <div class="image-title">Spot Cloud</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjfUW8_Q9dkYy2K5dwd0IKKosPflZZXyIZVH_Zm2ltIA&amp;s=10" alt="Spot Rain">
+                <div class="image-title">Spot Rain</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ65PZjpQKFfLXekIF94LQ5EdgxGgw9NQLVHNmA9ZABwA&amp;s=10" alt="Spot Storm">
+                <div class="image-title">Spot Storm</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS00VUQgDnO0W7Qv0x-fUvxYLwZW5U-zzZPGwqLe1ORUw&amp;s" alt="Spot Thunder">
+                <div class="image-title">Spot Thunder</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAsunbAtySCphBeNSj_YAjAS3f-t72IGOuOMjuqVP4wA&amp;s" alt="Spot Lightning">
+                <div class="image-title">Spot Lightning</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTr0VPXOfk2g6jhobRO9yOR4js-j6h3-l4ifC3_5A3gew&amp;s=10" alt="Spot Ember">
+                <div class="image-title">Spot Ember</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNqJYlcjyUE6xmfbkZTUnJqys4ipksn7Ovjfx61kb-tQ&amp;s=10" alt="Spot Ash">
+                <div class="image-title">Spot Ash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhyuaeVwHD8ZH4mWxMoadSzANrNugJcigxKzK3gFNHoQ&amp;s=10" alt="Spot Smoke">
+                <div class="image-title">Spot Smoke</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwvwK8wiSprj3zcOGggILmoSXa90uW8lVMjR_klid1Yg&amp;s" alt="Spot Fog">
+                <div class="image-title">Spot Fog</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5E5IWVlaDNy6URznWZZsZ8afkrCbGzyAYK5YVEanXLw&amp;s=10" alt="Spot Mist">
+                <div class="image-title">Spot Mist</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjIhbMn13D4KaYrTyjLlBPFSuiNTwhGIw4eGG9TDAPNw&amp;s=10" alt="Spot Dew">
+                <div class="image-title">Spot Dew</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQow7VfDR-dIbdGE6RIMoRw5Int1SopFWk8HpLxe1Npw&amp;s=10" alt="Spot Drop">
+                <div class="image-title">Spot Drop</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQr0prM2J4WQ6P390NW7hz2JJ7E_oesXl6Q8yg212AQxQ&amp;s=10" alt="Spot Ripple">
+                <div class="image-title">Spot Ripple</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzgxk2ZcdaAvddt9WAiN2OkKC-ZjpjbIj095637FNXGA&amp;s=10" alt="Spot Tide">
+                <div class="image-title">Spot Tide</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRia5qrAt-N2umMFdwRpf2q8cJssCXVyrSeQ4qyKF9wyg&amp;s=10" alt="Spot Current">
+                <div class="image-title">Spot Current</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNF4bGNwYDEMK53eBUKcV6c-RBYxvPVwSe3UxJvinGXA&amp;s=10" alt="Spot Stream">
+                <div class="image-title">Spot Stream</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpfU2zQI-cF5smp1MsIQOtoJHKLa3FtkEGSWGgEwBxHw&amp;s" alt="Spot River">
+                <div class="image-title">Spot River</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6roTjtYGgMGqJHDnks1yiezLIN7SJpIAwBR5nwnDZNw&amp;s" alt="Spot Lake">
+                <div class="image-title">Spot Lake</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlRJGLFKXnRrWWnAhFGW0ZakHDn_WLD7YfbsW5dp9-tQ&amp;s=10" alt="Spot Pond">
+                <div class="image-title">Spot Pond</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStZyLBESjTuZ658FAhrl7JJCji0ndkSZxrzGr1PcIz3A&amp;s" alt="Spot Splash">
+                <div class="image-title">Spot Splash</div>
+            </div>
+
+            <div class="image-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNxPw1csSQm4ZX16j7F3q1rArMlgg2ciaG2W1X91WENQ&amp;s=10" alt="Spot Bubble">
+                <div class="image-title">Spot Bubble</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- IMAGE VIEWER -->
+    <div class="image-viewer" id="imageViewer">
+        <span class="image-viewer-close" id="imageViewerClose">&times;</span>
+        <div class="image-viewer-content">
+            <img id="viewerImage" src="" alt="Lizard">
+            <div class="image-viewer-title" id="viewerTitle"></div>
+
+            <!-- RATING -->
+            <div class="rating-section" id="ratingSection">
+                <div class="rating-label">Rate this lizard (1–10)</div>
+                <div class="rating-buttons" id="ratingButtons">
+                    <button type="button" class="rating-btn" data-score="1">1</button>
+                    <button type="button" class="rating-btn" data-score="2">2</button>
+                    <button type="button" class="rating-btn" data-score="3">3</button>
+                    <button type="button" class="rating-btn" data-score="4">4</button>
+                    <button type="button" class="rating-btn" data-score="5">5</button>
+                    <button type="button" class="rating-btn" data-score="6">6</button>
+                    <button type="button" class="rating-btn" data-score="7">7</button>
+                    <button type="button" class="rating-btn" data-score="8">8</button>
+                    <button type="button" class="rating-btn" data-score="9">9</button>
+                    <button type="button" class="rating-btn" data-score="10">10</button>
+                </div>
+                <div class="average-rating" id="averageRating">
+                    <span class="rating-loading">Loading ratings…</span>
+                </div>
+                <div class="your-rating" id="yourRating"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== SEARCH ==========
+        function searchImages() {
+            const search = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll(".image-card");
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = (text.includes(search) || search === "") ? "block" : "none";
+            });
+        }
+
+        document.getElementById("searchInput").addEventListener("keydown", function(event) {
+            if (event.key === "Enter") searchImages();
+        });
+
+        // ========== GLOBAL RATINGS (JSONBin) ==========
+        // Works on GitHub Pages / Netlify / Cloudflare Pages
+        // Does NOT work on free NeoCities (CSP blocks external fetch)
+        const JSONBIN_BIN_ID = "6a7e7560f5f4af5e2913ee91";
+        const JSONBIN_API_KEY = "$2a$10$3OrLMXYfabUTctzvQafFC.1bLMB3F3F3Qr0/WNrmY7ARriDEUO6gi";
+        const JSONBIN_URL = "https://api.jsonbin.io/v3/b/" + JSONBIN_BIN_ID;
+
+        function getUserId() {
+            let id = localStorage.getItem("lizard_rater_id");
+            if (!id) {
+                id = "user_" + Math.random().toString(36).slice(2) + "_" + Date.now().toString(36);
+                localStorage.setItem("lizard_rater_id", id);
+            }
+            return id;
+        }
+
+        function imageKey(title) {
+            return "img_" + title.trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").slice(0, 80);
+        }
+
+        function starsFromAverage(avg) {
+            const full = Math.round(Number(avg) || 0);
+            return "★".repeat(Math.min(10, full)) + "☆".repeat(Math.max(0, 10 - full));
+        }
+
+        const imageViewer = document.getElementById("imageViewer");
+        const viewerImage = document.getElementById("viewerImage");
+        const viewerTitle = document.getElementById("viewerTitle");
+        const imageViewerClose = document.getElementById("imageViewerClose");
+        const averageRatingEl = document.getElementById("averageRating");
+        const yourRatingEl = document.getElementById("yourRating");
+        const ratingButtons = document.querySelectorAll(".rating-btn");
+
+        let currentKey = null;
+        let currentUserScore = null;
+        let allRatingsCache = {};
+        let saving = false;
+        let lastError = "";
+
+        function clearSelectedButtons() {
+            ratingButtons.forEach(btn => btn.classList.remove("selected"));
+        }
+
+        function highlightScore(score) {
+            clearSelectedButtons();
+            if (score != null) {
+                const btn = document.querySelector('.rating-btn[data-score="' + score + '"]');
+                if (btn) btn.classList.add("selected");
+            }
+        }
+
+        function showAverage(scoresObj, userScore) {
+            const scores = scoresObj || {};
+            const values = Object.keys(scores).map(function(k) { return Number(scores[k]); });
+            const count = values.length;
+            if (count === 0) {
+                averageRatingEl.innerHTML = '<span style="opacity:0.75">No ratings yet — be the first!</span>';
+            } else {
+                let sum = 0;
+                values.forEach(function(v) { sum += v; });
+                const avg = (sum / count).toFixed(1);
+                averageRatingEl.innerHTML =
+                    '<span class="stars">' + starsFromAverage(avg) + '</span> ' +
+                    '<strong>' + avg + '/10</strong>' +
+                    '<span class="count">(' + count + ' rating' + (count === 1 ? '' : 's') + ')</span>';
+            }
+            if (userScore != null) {
+                yourRatingEl.textContent = "Your rating: " + userScore + "/10  (click another number to change it)";
+            } else {
+                yourRatingEl.textContent = "";
+            }
+        }
+
+        async function fetchAllRatings() {
+            try {
+                const res = await fetch(JSONBIN_URL + "/latest", {
+                    method: "GET",
+                    mode: "cors",
+                    cache: "no-store",
+                    headers: {
+                        "X-Master-Key": JSONBIN_API_KEY,
+                        "X-Bin-Meta": "false"
+                    }
+                });
+                const text = await res.text();
+                if (!res.ok) {
+                    lastError = "Load HTTP " + res.status;
+                    console.error(lastError, text.slice(0, 200));
+                    return null;
+                }
+                let data;
+                try { data = JSON.parse(text); } catch (e) {
+                    lastError = "Load: bad JSON";
+                    return null;
+                }
+                allRatingsCache = (data && data.record) ? data.record : (data || {});
+                if (typeof allRatingsCache !== "object" || Array.isArray(allRatingsCache)) {
+                    allRatingsCache = {};
+                }
+                // ignore helper keys
+                if (allRatingsCache.ratings_ready) delete allRatingsCache.ratings_ready;
+                if (allRatingsCache.test) delete allRatingsCache.test;
+                lastError = "";
+                return allRatingsCache;
+            } catch (err) {
+                lastError = "Load failed: " + (err && err.message ? err.message : err);
+                console.error(err);
+                return null;
+            }
+        }
+
+        async function saveAllRatings(data) {
+            try {
+                const res = await fetch(JSONBIN_URL, {
+                    method: "PUT",
+                    mode: "cors",
+                    cache: "no-store",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": JSONBIN_API_KEY
+                    },
+                    body: JSON.stringify(data)
+                });
+                const text = await res.text();
+                if (!res.ok) {
+                    lastError = "Save HTTP " + res.status;
+                    console.error(lastError, text.slice(0, 200));
+                    return false;
+                }
+                allRatingsCache = data;
+                lastError = "";
+                return true;
+            } catch (err) {
+                lastError = "Save failed: " + (err && err.message ? err.message : err);
+                console.error(err);
+                return false;
+            }
+        }
+
+        async function loadRatings(key) {
+            averageRatingEl.innerHTML = '<span class="rating-loading">Loading ratings…</span>';
+            yourRatingEl.textContent = "";
+            clearSelectedButtons();
+            currentUserScore = null;
+
+            try {
+                const local = JSON.parse(localStorage.getItem("lizard_ratings") || "{}");
+                if (local[key] != null) {
+                    currentUserScore = Number(local[key]);
+                    highlightScore(currentUserScore);
+                }
+            } catch (e) {}
+
+            const all = await fetchAllRatings();
+            if (all == null) {
+                if (currentUserScore != null) {
+                    averageRatingEl.innerHTML =
+                        '<span class="stars">' + starsFromAverage(currentUserScore) + '</span> ' +
+                        '<strong>' + currentUserScore + '/10</strong>' +
+                        '<span class="count">(this device only)</span>';
+                    yourRatingEl.textContent = "Could not reach global ratings — " + (lastError || "network error");
+                } else {
+                    averageRatingEl.innerHTML = '<span style="opacity:0.8">Could not load ratings<br><small>' + (lastError || "") + '</small></span>';
+                }
+                return;
+            }
+
+            const scores = all[key] || {};
+            const uid = getUserId();
+            if (scores[uid] != null) {
+                currentUserScore = Number(scores[uid]);
+                highlightScore(currentUserScore);
+                try {
+                    const local = JSON.parse(localStorage.getItem("lizard_ratings") || "{}");
+                    local[key] = currentUserScore;
+                    localStorage.setItem("lizard_ratings", JSON.stringify(local));
+                } catch (e) {}
+            }
+            showAverage(scores, currentUserScore);
+        }
+
+        async function submitRating(score) {
+            if (!currentKey || saving) return;
+            // Google sign-in optional for now — allow rating without sign-in
+            score = Number(score);
+            if (score < 1 || score > 10) return;
+
+            const uid = getUserId();
+            currentUserScore = score;
+            highlightScore(score);
+
+            try {
+                const local = JSON.parse(localStorage.getItem("lizard_ratings") || "{}");
+                local[currentKey] = score;
+                localStorage.setItem("lizard_ratings", JSON.stringify(local));
+            } catch (e) {}
+
+            saving = true;
+            yourRatingEl.textContent = "Saving…";
+
+            let all = await fetchAllRatings();
+            if (all == null) all = Object.assign({}, allRatingsCache);
+            if (!all[currentKey] || typeof all[currentKey] !== "object") all[currentKey] = {};
+            all[currentKey][uid] = score;
+
+            const ok = await saveAllRatings(all);
+            saving = false;
+
+            if (ok) {
+                showAverage(all[currentKey], score);
+            } else {
+                averageRatingEl.innerHTML =
+                    '<span class="stars">' + starsFromAverage(score) + '</span> ' +
+                    '<strong>' + score + '/10</strong>' +
+                    '<span class="count">(this device only)</span>';
+                yourRatingEl.textContent = "Saved on this device only — " + (lastError || "global save failed");
+            }
+        }
+
+        function onRateClick(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            submitRating(this.getAttribute("data-score"));
+        }
+
+        ratingButtons.forEach(function(btn) {
+            btn.addEventListener("click", onRateClick);
+            btn.addEventListener("pointerdown", function(e) { e.stopPropagation(); });
+        });
+
+        const ratingSection = document.getElementById("ratingSection");
+        if (ratingSection) {
+            ratingSection.addEventListener("click", function(e) { e.stopPropagation(); });
+        }
+
+        // ========== VIEWER ==========
+        document.querySelectorAll(".image-card").forEach(function(card) {
+            card.addEventListener("click", function() {
+                const image = card.querySelector("img");
+                const title = card.querySelector(".image-title");
+                viewerImage.src = image.src;
+                viewerImage.alt = image.alt;
+                viewerTitle.textContent = title.textContent;
+
+                currentKey = imageKey(title.textContent);
+                loadRatings(currentKey);
+                imageViewer.classList.add("active");
+            });
+        });
+
+        function closeViewer() {
+            imageViewer.classList.remove("active");
+            viewerImage.src = "";
+            currentKey = null;
+        }
+
+        imageViewerClose.addEventListener("click", closeViewer);
+
+        imageViewer.addEventListener("click", function(event) {
+            if (event.target === imageViewer) closeViewer();
+        });
+
+        document.querySelector(".image-viewer-content").addEventListener("click", function(e) {
+            e.stopPropagation();
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") closeViewer();
+        });
+
+
+        // ========== PAGE VIEW COUNTER ==========
+        async function trackPageView() {
+            try {
+                const all = await fetchAllRatings();
+                if (all == null) return;
+                const key = "_site_stats";
+                if (!all[key] || typeof all[key] !== "object") {
+                    all[key] = { views: 0 };
+                }
+                all[key].views = (Number(all[key].views) || 0) + 1;
+                await saveAllRatings(all);
+            } catch (e) {
+                console.error("view track failed", e);
+            }
+        }
+        // Count once per browser session so refresh spam is limited
+        if (!sessionStorage.getItem("lizard_view_counted")) {
+            sessionStorage.setItem("lizard_view_counted", "1");
+            trackPageView();
+        }
+
+    </script>
+
+</body>
+</html>
