@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate My Lizards — LizardIMG.com</title>
+    <link rel="icon" type="image/png" href="GccFk.png">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image: url("https://miro.medium.com/1*YB-Ud_1hmF1l9jfTDaWO7A.gif");
+            background-position: center;
+            background-size: cover;
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.25);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .top-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 60px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 9999;
+            box-sizing: border-box;
+        }
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            min-width: 0;
+        }
+        .top-bar-left a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .top-bar-left img.logo {
+            height: 38px;
+            width: 38px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .top-bar-left span.site-name {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+        .top-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .top-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 16px;
+            border: 1px solid #333;
+        }
+        .top-nav-link:hover, .top-nav-link.active {
+            color: #fff;
+            border-color: #666;
+            background: #1a1a1a;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            padding: 90px 25px 40px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .subtitle {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px #000;
+        }
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 22px;
+            max-width: 1100px;
+            margin: auto;
+        }
+        /* Rainbow border cards */
+        .image-card {
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            padding: 4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 300% 300%;
+            animation: rainbowShift 4s linear infinite;
+            transition: transform 0.2s;
+        }
+        .image-card:hover {
+            transform: scale(1.04);
+        }
+        .image-card-inner {
+            background: #111;
+            border-radius: 9px;
+            overflow: hidden;
+        }
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .image-title {
+            padding: 12px;
+            font-size: 15px;
+            color: #fff;
+            text-align: center;
+            font-weight: bold;
+        }
+        @keyframes rainbowShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 300% 50%; }
+        }
+        /* Viewer */
+        .image-viewer {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        .image-viewer.active { display: flex; }
+        .image-viewer-content {
+            max-width: 95%;
+            max-height: 95%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 50vh;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+        .image-viewer-title {
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 12px;
+        }
+        .image-viewer-close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: white;
+            font-size: 45px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 30;
+        }
+        .rating-section {
+            margin-top: 18px;
+            color: white;
+            pointer-events: auto;
+        }
+        .rating-label {
+            font-size: 15px;
+            margin-bottom: 12px;
+            opacity: 0.95;
+        }
+        .score-display {
+            font-size: 42px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 8px;
+        }
+        .score-display span {
+            font-size: 18px;
+            color: #aaa;
+            font-weight: normal;
+        }
+        input[type="range"] {
+            width: min(90vw, 420px);
+            accent-color: #4285f4;
+            cursor: pointer;
+        }
+        .rate-submit {
+            margin-top: 14px;
+            background: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .rate-submit:hover { background: #3367d6; }
+        .average-rating {
+            margin-top: 14px;
+            font-size: 16px;
+            min-height: 28px;
+        }
+        .your-rating {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-top: 6px;
+        }
+        @media (max-width: 600px) {
+            .image-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .image-card img { height: 150px; }
+            .image-viewer img { max-height: 40vh; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <a href="index.html">
+                <img class="logo" src="GccFk.png" alt="LizardIMG">
+                <span class="site-name">LizardIMG.com</span>
+            </a>
+        </div>
+        <div class="top-bar-right">
+            <div class="top-nav-links">
+                <a class="top-nav-link" href="views.html"><span>👁</span><span class="nav-label">Views</span></a>
+                <a class="top-nav-link" href="ratings.html"><span>★</span><span class="nav-label">Ratings</span></a>
+                <a class="top-nav-link active" href="my-lizards.html"><span>🦎</span><span class="nav-label">Rate My Lizards</span></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Rate My Lizards 🦎</h1>
+        <p class="subtitle">Real Bluey & Spot photos · Rate each one 1–100</p>
+
+        <div class="image-grid" id="imageGrid">
+            <div class="image-card" data-title="Bluey And Spot">
+                <div class="image-card-inner">
+                    <img src="my-lizards/bluey-and-spot.png" alt="Bluey And Spot">
+                    <div class="image-title">Bluey And Spot</div>
+                </div>
+            </div>
+            <div class="image-card" data-title="Silverface">
+                <div class="image-card-inner">
+                    <img src="my-lizards/silverface.png" alt="Silverface">
+                    <div class="image-title">Silverface</div>
+                </div>
+            </div>
+            <div class="image-card" data-title="Chin Tickles">
+                <div class="image-card-inner">
+                    <img src="my-lizards/chin-tickles.png" alt="Chin Tickles">
+                    <div class="image-title">Chin Tickles</div>
+                </div>
+            </div>
+            <div class="image-card" data-title="Towel Spot">
+                <div class="image-card-inner">
+                    <img src="my-lizards/towel-spot.png" alt="Towel Spot">
+                    <div class="image-title">Towel Spot</div>
+                </div>
+            </div>
+            <div class="image-card" data-title="Bluebeam Closeup">
+                <div class="image-card-inner">
+                    <img src="my-lizards/bluebeam-closeup.jpg" alt="Bluebeam Closeup">
+                    <div class="image-title">Bluebeam Closeup</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="image-viewer" id="imageViewer">
+        <span class="image-viewer-close" id="imageViewerClose">&times;</span>
+        <div class="image-viewer-content">
+            <img id="viewerImage" src="" alt="My Lizard">
+            <div class="image-viewer-title" id="viewerTitle"></div>
+            <div class="rating-section" id="ratingSection">
+                <div class="rating-label">Rate this lizard (1–100)</div>
+                <div class="score-display"><span id="sliderValue">50</span><span> / 100</span></div>
+                <input type="range" id="scoreSlider" min="1" max="100" value="50">
+                <div>
+                    <button type="button" class="rate-submit" id="rateSubmitBtn">Submit rating</button>
+                </div>
+                <div class="average-rating" id="averageRating">
+                    <span style="opacity:0.6">Loading ratings…</span>
+                </div>
+                <div class="your-rating" id="yourRating"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const JSONBIN_BIN_ID = "6a7e7560f5f4af5e2913ee91";
+        const JSONBIN_API_KEY = "$2a$10$3OrLMXYfabUTctzvQafFC.1bLMB3F3F3Qr0/WNrmY7ARriDEUO6gi";
+        const JSONBIN_URL = "https://api.jsonbin.io/v3/b/" + JSONBIN_BIN_ID;
+
+        function getUserId() {
+            let id = localStorage.getItem("lizard_rater_id");
+            if (!id) {
+                id = "user_" + Math.random().toString(36).slice(2) + "_" + Date.now().toString(36);
+                localStorage.setItem("lizard_rater_id", id);
+            }
+            return id;
+        }
+
+        function imageKey(title) {
+            return "mylizard_" + title.trim().toLowerCase().replace(/[^a-z0-9]+/g, "_").slice(0, 80);
+        }
+
+        const imageViewer = document.getElementById("imageViewer");
+        const viewerImage = document.getElementById("viewerImage");
+        const viewerTitle = document.getElementById("viewerTitle");
+        const averageRatingEl = document.getElementById("averageRating");
+        const yourRatingEl = document.getElementById("yourRating");
+        const scoreSlider = document.getElementById("scoreSlider");
+        const sliderValue = document.getElementById("sliderValue");
+
+        let currentKey = null;
+        let currentUserScore = null;
+        let allRatingsCache = {};
+        let saving = false;
+
+        scoreSlider.addEventListener("input", function() {
+            sliderValue.textContent = scoreSlider.value;
+        });
+
+        async function fetchAllRatings() {
+            try {
+                const res = await fetch(JSONBIN_URL + "/latest", {
+                    method: "GET",
+                    headers: {
+                        "X-Master-Key": JSONBIN_API_KEY,
+                        "X-Bin-Meta": "false"
+                    }
+                });
+                if (!res.ok) return null;
+                let data = await res.json();
+                data = (data && data.record) ? data.record : (data || {});
+                allRatingsCache = data;
+                return data;
+            } catch (e) {
+                console.error(e);
+                return null;
+            }
+        }
+
+        async function saveAllRatings(data) {
+            try {
+                const res = await fetch(JSONBIN_URL, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Master-Key": JSONBIN_API_KEY
+                    },
+                    body: JSON.stringify(data)
+                });
+                if (!res.ok) return false;
+                allRatingsCache = data;
+                return true;
+            } catch (e) {
+                console.error(e);
+                return false;
+            }
+        }
+
+        function showAverage(scoresObj, userScore) {
+            const values = Object.keys(scoresObj || {}).map(k => Number(scoresObj[k]));
+            const count = values.length;
+            if (count === 0) {
+                averageRatingEl.innerHTML = '<span style="opacity:0.75">No ratings yet — be the first!</span>';
+            } else {
+                let sum = 0;
+                values.forEach(v => sum += v);
+                const avg = (sum / count).toFixed(1);
+                averageRatingEl.innerHTML =
+                    '<strong>' + avg + '/100</strong> ' +
+                    '<span style="opacity:0.75">(' + count + ' rating' + (count === 1 ? '' : 's') + ')</span>';
+            }
+            if (userScore != null) {
+                yourRatingEl.textContent = "Your rating: " + userScore + "/100";
+            } else {
+                yourRatingEl.textContent = "";
+            }
+        }
+
+        async function loadRatings(key) {
+            averageRatingEl.innerHTML = '<span style="opacity:0.6">Loading ratings…</span>';
+            yourRatingEl.textContent = "";
+            currentUserScore = null;
+            scoreSlider.value = 50;
+            sliderValue.textContent = "50";
+
+            try {
+                const local = JSON.parse(localStorage.getItem("mylizard_ratings") || "{}");
+                if (local[key] != null) {
+                    currentUserScore = Number(local[key]);
+                    scoreSlider.value = currentUserScore;
+                    sliderValue.textContent = String(currentUserScore);
+                }
+            } catch (e) {}
+
+            const all = await fetchAllRatings();
+            if (all == null) {
+                if (currentUserScore != null) {
+                    averageRatingEl.innerHTML = '<strong>' + currentUserScore + '/100</strong> <span style="opacity:0.75">(this device only)</span>';
+                } else {
+                    averageRatingEl.innerHTML = '<span style="opacity:0.8">Could not load ratings</span>';
+                }
+                return;
+            }
+
+            const scores = all[key] || {};
+            const uid = getUserId();
+            if (scores[uid] != null) {
+                currentUserScore = Number(scores[uid]);
+                scoreSlider.value = currentUserScore;
+                sliderValue.textContent = String(currentUserScore);
+            }
+            showAverage(scores, currentUserScore);
+        }
+
+        async function submitRating() {
+            if (!currentKey || saving) return;
+            const score = Number(scoreSlider.value);
+            if (score < 1 || score > 100) return;
+
+            const uid = getUserId();
+            currentUserScore = score;
+            saving = true;
+            yourRatingEl.textContent = "Saving…";
+
+            try {
+                const local = JSON.parse(localStorage.getItem("mylizard_ratings") || "{}");
+                local[currentKey] = score;
+                localStorage.setItem("mylizard_ratings", JSON.stringify(local));
+            } catch (e) {}
+
+            let all = await fetchAllRatings();
+            if (all == null) all = Object.assign({}, allRatingsCache);
+            if (!all[currentKey] || typeof all[currentKey] !== "object") all[currentKey] = {};
+            all[currentKey][uid] = score;
+
+            const ok = await saveAllRatings(all);
+            saving = false;
+
+            if (ok) {
+                showAverage(all[currentKey], score);
+            } else {
+                averageRatingEl.innerHTML = '<strong>' + score + '/100</strong> <span style="opacity:0.75">(this device only)</span>';
+                yourRatingEl.textContent = "Saved on this device only";
+            }
+        }
+
+        document.getElementById("rateSubmitBtn").addEventListener("click", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            submitRating();
+        });
+
+        document.querySelectorAll(".image-card").forEach(function(card) {
+            card.addEventListener("click", function() {
+                const image = card.querySelector("img");
+                const title = card.getAttribute("data-title");
+                viewerImage.src = image.src;
+                viewerTitle.textContent = title;
+                currentKey = imageKey(title);
+                loadRatings(currentKey);
+                imageViewer.classList.add("active");
+            });
+        });
+
+        function closeViewer() {
+            imageViewer.classList.remove("active");
+            viewerImage.src = "";
+            currentKey = null;
+        }
+        document.getElementById("imageViewerClose").addEventListener("click", closeViewer);
+        imageViewer.addEventListener("click", function(e) {
+            if (e.target === imageViewer) closeViewer();
+        });
+        document.querySelector(".image-viewer-content").addEventListener("click", function(e) {
+            e.stopPropagation();
+        });
+        document.addEventListener("keydown", function(e) {
+            if (e.key === "Escape") closeViewer();
+        });
+    </script>
+</body>
+</html>
